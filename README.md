@@ -1,1 +1,9 @@
-# Lab-6.2-Promises-and-Error-Handling-Challenge
+# Critical Thinking Questions
+## Why is it important to handle errors for each individual API call rather than just at the end of the promise chain?
+Error handling for each API call enables granular recovery in the event of an error and fault tolerance. If you handle errors only at the end of the chain, a single failure could interrupt the entire sequence, even if subsequent operations could have continued independently or if the failed operation could have been gracefully degraded. Individual error handling provides a precise context for identifying exactly which call failed, enabling more accurate error logging and tailored feedback for the user.
+
+## How does using custom error classes improve debugging and error identification?
+Custom error classes allow you to distinguish between different types of errors programmatically (e.g., using `instanceof` or specific custom properties). Instead of relying on parsing generic error message strings (which can be fragile), you can catch specific errors like `NetworkError` or `ValidationError` and handle them accordingly. Furthermore, custom error classes let you attach additional contextual metadata to the error, making debugging much easier by providing a clearer picture of what went wrong.
+
+## When might a retry mechanism be more effective than an immediate failure response?
+A retry mechanism is highly effective for transient or temporary errors, such as momentary network instability, rate limiting (HTTP 429), or a brief server overload/timeout (HTTP 503/504). In these scenarios, retrying the request after a short delay (often utilizing exponential backoff) has a high probability of succeeding. Failing immediately would result in a poor and frustrating user experience for issues that often resolve themselves within a few seconds.
